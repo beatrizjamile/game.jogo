@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hero Code - Desafio POO</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #263a5c,
+                    #101522 50%,
+                    #05070b
+                );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(
+                    rgba(255,255,255,0.1) 1px,
+                    transparent 1px
+                );
+
+            background-size: 30px 30px;
+
+            opacity: 0.25;
+
+        }
+
+
+        .game {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            min-height: 700px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(25,32,48,0.98),
+                    rgba(8,11,18,0.98)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.7);
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================
+           TOPO
+        ===================================== */
+
+        .topbar {
+
+            height: 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background:
+                rgba(3,6,12,0.8);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #facc15,
+                    #f97316
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 23px;
+
+        }
+
+
+        .status {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .status-box {
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            padding: 9px 14px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================
+           TELAS
+        ===================================== */
+
+        .screen {
+
+            padding: 35px;
+
+        }
+
+
+        .hidden {
+
+            display: none !important;
+
+        }
+
+
+        /* =====================================
+           TELA INICIAL
+        ===================================== */
+
+        .hero-title {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+        }
+
+
+        .hero-title .small {
+
+            color: #facc15;
+
+            font-weight: bold;
+
+            letter-spacing: 4px;
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .hero-title h1 {
+
+            font-size:
+                clamp(40px, 7vw, 75px);
+
+            font-weight: 1000;
+
+            line-height: 1;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #fff,
+                    #facc15,
+                    #fb923c
+                );
+
+            -webkit-background-clip: text;
+
+            color: transparent;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .hero-title p {
+
+            color: #aeb7ca;
+
+            font-size: 18px;
+
+            max-width: 720px;
+
+            margin: auto;
+
+            line-height: 1.6;
+
+        }
+
+
+        .round-info {
+
+            margin: 25px auto;
+
+            max-width: 500px;
+
+            padding: 15px 20px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            background:
+                rgba(250,204,21,0.08);
+
+            border:
+                1px solid rgba(250,204,21,0.2);
+
+            color: #facc15;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================
+           PERSONAGENS
+        ===================================== */
+
+        .characters {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: flex-end;
+
+            gap: 30px;
+
+            margin: 35px 0;
+
+        }
+
+
+        .character {
+
+            width: 170px;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+        }
+
+
+        .character:hover {
+
+            transform:
+                translateY(-10px)
+                scale(1.05);
+
+        }
+
+
+        .character-body {
+
+            width: 140px;
+
+            height: 170px;
+
+            margin: auto;
+
+            border-radius:
+                70px 70px 40px 40px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 85px;
+
+            border:
+                3px solid rgba(255,255,255,0.15);
+
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.5);
+
+        }
+
+
+        .batman {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #252b38,
+                    #050608
+                );
+
+        }
+
+
+        .ironman {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ef4444,
+                    #7f1d1d
+                );
+
+        }
+
+
+        .spiderman {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #dc2626,
+                    #172554
+                );
+
+        }
+
+
+        .character-name {
+
+            font-weight: 900;
+
+            margin-top: 10px;
+
+        }
+
+
+        .character-role {
+
+            color: #8e99ae;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* =====================================
+           BOTÕES
+        ===================================== */
+
+        .main-button {
+
+            display: block;
+
+            margin: auto;
+
+            border: none;
+
+            padding: 17px 45px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #facc15,
+                    #f97316
+                );
+
+            color: #111827;
+
+            font-size: 18px;
+
+            font-weight: 1000;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+
+        .main-button:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.03);
+
+            box-shadow:
+                0 15px 40px
+                rgba(249,115,22,0.4);
+
+        }
+
+
+        /* =====================================
+           QUIZ
+        ===================================== */
+
+        .quiz-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .question-number {
+
+            color: #9ca8bc;
+
+            font-weight: bold;
+
+        }
+
+
+        .level {
+
+            color: #facc15;
+
+            font-weight: 900;
+
+        }
+
+
+        .xp {
+
+            width: 100%;
+
+            height: 12px;
+
+            background: #252b38;
+
+            border-radius: 50px;
+
+            overflow: hidden;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .xp-bar {
+
+            width: 10%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #22c55e,
+                    #84cc16,
+                    #facc15
+                );
+
+            transition: 0.5s;
+
+        }
+
+
+        .quiz-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                260px 1fr;
+
+            gap: 35px;
+
+        }
+
+
+        /* =====================================
+           PERSONAGEM DURANTE O JOGO
+        ===================================== */
+
+        .fighter-card {
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            text-align: center;
+
+        }
+
+
+        .fighter {
+
+            width: 180px;
+
+            height: 220px;
+
+            margin: auto;
+
+            border-radius:
+                90px 90px 45px 45px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 105px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #202735,
+                    #07090d
+                );
+
+            border:
+                3px solid #475569;
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.5);
+
+        }
+
+
+        .fighter-name {
+
+            font-size: 22px;
+
+            font-weight: 1000;
+
+            margin-top: 18px;
+
+        }
+
+
+        .fighter-message {
+
+            color: #9da8bb;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-top: 8px;
+
+        }
+
+
+        .life-title {
+
+            text-align: left;
+
+            font-size: 12px;
+
+            color: #8f9aad;
+
+            margin-top: 20px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .life {
+
+            height: 9px;
+
+            background: #252b38;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .life-bar {
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ef4444,
+                    #f97316
+                );
+
+            transition: 0.4s;
+
+        }
+
+
+        /* =====================================
+           PERGUNTA
+        ===================================== */
+
+        .question-card {
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+        }
+
+
+        .phase-title {
+
+            color: #facc15;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .question {
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            line-height: 1.4;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* =====================================
+           ALTERNATIVAS
+        ===================================== */
+
+        .answers {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+
+        .answer {
+
+            border:
+                1px solid #394355;
+
+            background:
+                #171d29;
+
+            color: white;
+
+            padding: 17px;
+
+            border-radius: 14px;
+
+            text-align: left;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .answer:hover {
+
+            border-color: #facc15;
+
+            background: #202838;
+
+            transform:
+                translateX(5px);
+
+        }
+
+
+        .answer.correct {
+
+            background:
+                rgba(34,197,94,0.2);
+
+            border-color:
+                #22c55e;
+
+            color: #86efac;
+
+        }
+
+
+        .answer.wrong {
+
+            background:
+                rgba(239,68,68,0.2);
+
+            border-color:
+                #ef4444;
+
+            color: #fca5a5;
+
+        }
+
+
+        .next {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: #334155;
+
+            color: white;
+
+            font-weight: 900;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+
+        .next:hover:not(:disabled) {
+
+            background: #475569;
+
+        }
+
+
+        .next:disabled {
+
+            opacity: 0.4;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =====================================
+           RESULTADO
+        ===================================== */
+
+        .result {
+
+            text-align: center;
+
+            padding: 70px 30px;
+
+        }
+
+
+        .result-character {
+
+            font-size: 110px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .result h1 {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .result-message {
+
+            color: #aeb8ca;
+
+            font-size: 20px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .score {
+
+            font-size: 70px;
+
+            font-weight: 1000;
+
+            color: #facc15;
+
+        }
+
+
+        .rank {
+
+            display: inline-block;
+
+            padding: 10px 20px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(250,204,21,0.12);
+
+            color: #facc15;
+
+            font-weight: 900;
+
+            margin: 15px 0 30px;
+
+        }
+
+
+        .round-result {
+
+            margin-bottom: 25px;
+
+            color: #9da8bb;
+
+        }
+
+
+        /* =====================================
+           ANIMAÇÕES
+        ===================================== */
+
+        @keyframes hit {
+
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-12px);
+            }
+
+            50% {
+                transform: translateX(12px);
+            }
+
+            75% {
+                transform: translateX(-7px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+
+        }
+
+
+        .hit {
+
+            animation:
+                hit 0.45s;
+
+        }
+
+
+        @keyframes power {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+
+
+        .power {
+
+            animation:
+                power 0.45s;
+
+        }
+
+
+        /* =====================================
+           RESPONSIVO
+        ===================================== */
+
+        @media (max-width: 800px) {
+
+            .quiz-layout {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .fighter-card {
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 15px;
+
+                text-align: left;
+
+            }
+
+
+            .fighter {
+
+                width: 100px;
+
+                height: 120px;
+
+                font-size: 60px;
+
+                flex-shrink: 0;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            body {
+
+                padding: 8px;
+
+            }
+
+
+            .screen {
+
+                padding: 20px;
+
+            }
+
+
+            .topbar {
+
+                padding: 0 15px;
+
+            }
+
+
+            .status-box {
+
+                padding: 7px 9px;
+
+                font-size: 12px;
+
+            }
+
+
+            .characters {
+
+                gap: 5px;
+
+            }
+
+
+            .character {
+
+                width: 100px;
+
+            }
+
+
+            .character-body {
+
+                width: 85px;
+
+                height: 110px;
+
+                font-size: 55px;
+
+            }
+
+
+            .question {
+
+                font-size: 21px;
+
+            }
+
+
+            .result h1 {
+
+                font-size: 34px;
+
+            }
+
+
+            .score {
+
+                font-size: 55px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+
+    <!-- =====================================
+         TOPO
+    ====================================== -->
+
+    <div class="topbar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ⚡
+            </div>
+
+            HERO CODE
+
+        </div>
+
+
+        <div class="status">
+
+            <div
+                id="topScore"
+                class="status-box">
+
+                ⭐ 0 XP
+
+            </div>
+
+
+            <div
+                id="topQuestion"
+                class="status-box">
+
+                0 / 10
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         TELA INICIAL
+    ====================================== -->
+
+    <section
+        id="startScreen"
+        class="screen">
+
+
+        <div class="hero-title">
+
+            <div class="small">
+
+                MISSÃO: PROGRAMADOR
+
+            </div>
+
+
+            <h1>
+
+                HERO CODE
+
+            </h1>
+
+
+            <p>
+
+                Teste seus conhecimentos sobre
+                Programação Orientada a Objetos
+                em Java.
+
+                <br><br>
+
+                A cada rodada você responderá
+                apenas <strong>10 perguntas</strong>.
+
+            </p>
+
+        </div>
+
+
+        <div class="round-info">
+
+            🎯 10 PERGUNTAS POR RODADA
+            <br>
+            🔀 Perguntas e respostas mudam a cada rodada
+
+        </div>
+
+
+        <div class="characters">
+
+
+            <div class="character">
+
+                <div
+                    class="character-body batman">
+
+                    🦇
+
+                </div>
+
+                <div class="character-name">
+
+                    BATMAN
+
+                </div>
+
+                <div class="character-role">
+
+                    Estrategista
+
+                </div>
+
+            </div>
+
+
+            <div class="character">
+
+                <div
+                    class="character-body ironman">
+
+                    🤖
+
+                </div>
+
+                <div class="character-name">
+
+                    HOMEM DE FERRO
+
+                </div>
+
+                <div class="character-role">
+
+                    Tecnologia
+
+                </div>
+
+            </div>
+
+
+            <div class="character">
+
+                <div
+                    class="character-body spiderman">
+
+                    🕷️
+
+                </div>
+
+                <div class="character-name">
+
+                    HOMEM-ARANHA
+
+                </div>
+
+                <div class="character-role">
+
+                    Agilidade
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="main-button"
+            onclick="startGame()">
+
+            ⚔️ COMEÇAR RODADA
+
+        </button>
+
+    </section>
+
+
+    <!-- =====================================
+         TELA DO QUIZ
+    ====================================== -->
+
+    <section
+        id="quizScreen"
+        class="screen hidden">
+
+
+        <div class="quiz-header">
+
+            <div
+                id="questionNumber"
+                class="question-number">
+
+                PERGUNTA 1 / 10
+
+            </div>
+
+
+            <div
+                id="level"
+                class="level">
+
+                RODADA 1
+
+            </div>
+
+        </div>
+
+
+        <div class="xp">
+
+            <div
+                id="xpBar"
+                class="xp-bar">
+
+            </div>
+
+        </div>
+
+
+        <div class="quiz-layout">
+
+
+            <!-- PERSONAGEM -->
+
+            <div class="fighter-card">
+
+
+                <div
+                    id="fighter"
+                    class="fighter">
+
+                    🦇
+
+                </div>
+
+
+                <div
+                    id="fighterName"
+                    class="fighter-name">
+
+                    BATMAN
+
+                </div>
+
+
+                <div
+                    id="fighterMessage"
+                    class="fighter-message">
+
+                    Prepare-se para a missão.
+
+                </div>
+
+
+                <div class="life-title">
+
+                    ENERGIA
+
+                </div>
+
+
+                <div class="life">
+
+                    <div
+                        id="lifeBar"
+                        class="life-bar">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PERGUNTA -->
+
+            <div class="question-card">
+
+
+                <div
+                    id="phaseTitle"
+                    class="phase-title">
+
+                    ⚔️ DESAFIO POO
+
+                </div>
+
+
+                <div
+                    id="question"
+                    class="question">
+
+                </div>
+
+
+                <div
+                    id="answers"
+                    class="answers">
+
+                </div>
+
+
+                <button
+                    id="nextButton"
+                    class="next"
+                    onclick="nextQuestion()"
+                    disabled>
+
+                    PRÓXIMA PERGUNTA ➜
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         RESULTADO
+    ====================================== -->
+
+    <section
+        id="resultScreen"
+        class="result hidden">
+
+
+        <div
+            id="resultCharacter"
+            class="result-character">
+
+            🏆
+
+        </div>
+
+
+        <h1>
+
+            RODADA CONCLUÍDA!
+
+        </h1>
+
+
+        <div
+            id="resultMessage"
+            class="result-message">
+
+        </div>
+
+
+        <div
+            id="finalScore"
+            class="score">
+
+            0 / 10
+
+        </div>
+
+
+        <div
+            id="rank"
+            class="rank">
+
+            NOVATO
+
+        </div>
+
+
+        <div
+            class="round-result">
+
+            🔀 Na próxima rodada as perguntas
+            e alternativas serão embaralhadas novamente.
+
+        </div>
+
+
+        <button
+            class="main-button"
+            onclick="newRound()">
+
+            🔄 NOVA RODADA
+
+        </button>
+
+
+        <br>
+
+
+        <button
+            class="main-button"
+            onclick="goHome()"
+            style="
+                background:#334155;
+                color:white;
+                margin-top:10px;
+            ">
+
+            🏠 MENU PRINCIPAL
+
+        </button>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+
+// =====================================================
+// BANCO DE PERGUNTAS
+//
+// Existem 20 perguntas escondidas.
+// O jogador vê SOMENTE 10 por rodada.
+// =====================================================
+
+const questionBank = [
+
+    {
+        question: "O que é uma classe em Java?",
+
+        answers: [
+            "Um modelo para criar objetos",
+            "Um banco de dados",
+            "Um tipo de loop",
+            "Um comentário",
+            "Uma variável"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que é um objeto?",
+
+        answers: [
+            "Uma instância de uma classe",
+            "Um método",
+            "Um pacote",
+            "Um comentário",
+            "Um operador"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave cria um objeto em Java?",
+
+        answers: [
+            "new",
+            "create",
+            "object",
+            "make",
+            "class"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave representa herança?",
+
+        answers: [
+            "extends",
+            "inherits",
+            "parent",
+            "superclass",
+            "inherit"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual destes é um dos pilares da POO?",
+
+        answers: [
+            "Encapsulamento",
+            "Compilação",
+            "Internet",
+            "Digitação",
+            "Formatação"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual modificador restringe o acesso à própria classe?",
+
+        answers: [
+            "private",
+            "public",
+            "protected",
+            "static",
+            "final"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave representa o objeto atual?",
+
+        answers: [
+            "this",
+            "self",
+            "current",
+            "object",
+            "me"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Para que serve um construtor?",
+
+        answers: [
+            "Inicializar objetos",
+            "Excluir objetos",
+            "Fechar o programa",
+            "Criar loops",
+            "Compilar o programa"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que significa polimorfismo?",
+
+        answers: [
+            "Possibilidade de diferentes comportamentos",
+            "Criar somente uma classe",
+            "Excluir métodos",
+            "Criar apenas variáveis",
+            "Usar somente números"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave é usada para implementar uma interface?",
+
+        answers: [
+            "implements",
+            "extends",
+            "interface",
+            "inherit",
+            "using"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual modificador permite acesso de qualquer classe?",
+
+        answers: [
+            "public",
+            "private",
+            "protected",
+            "internal",
+            "hidden"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave impede que uma classe seja herdada?",
+
+        answers: [
+            "final",
+            "static",
+            "private",
+            "sealed",
+            "stop"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que é herança?",
+
+        answers: [
+            "Mecanismo que permite uma classe herdar características de outra",
+            "Criação de variáveis",
+            "Exclusão de objetos",
+            "Execução de loops",
+            "Criação de bancos de dados"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que é encapsulamento?",
+
+        answers: [
+            "Proteção e controle do acesso aos dados",
+            "Criação automática de objetos",
+            "Execução de métodos",
+            "Herança múltipla",
+            "Criação de interfaces"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que é uma interface em Java?",
+
+        answers: [
+            "Um contrato que define métodos que uma classe pode implementar",
+            "Um objeto",
+            "Uma variável",
+            "Um banco de dados",
+            "Um construtor"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave é usada para declarar uma classe?",
+
+        answers: [
+            "class",
+            "new",
+            "object",
+            "define",
+            "create"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave chama o construtor da classe pai?",
+
+        answers: [
+            "super",
+            "parent",
+            "base",
+            "extends",
+            "father"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "O que é um método?",
+
+        answers: [
+            "Um bloco de código que executa uma tarefa",
+            "Um objeto",
+            "Uma classe obrigatoriamente",
+            "Um pacote",
+            "Um banco de dados"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual palavra-chave indica que um método não pode ser sobrescrito?",
+
+        answers: [
+            "final",
+            "static",
+            "private",
+            "constant",
+            "fixed"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Qual conceito permite esconder detalhes internos de uma implementação?",
+
+        answers: [
+            "Abstração",
+            "Herança",
+            "Compilação",
+            "Loop",
+            "Conversão"
+        ],
+
+        correct: 0
+    }
+
+];
+
+
+// =====================================================
+// PERSONAGENS
+// =====================================================
+
+const heroes = [
+
+    {
+        name: "BATMAN",
+        emoji: "🦇",
+        message:
+            "Use sua estratégia para encontrar a resposta."
+    },
+
+
+    {
+        name: "HOMEM DE FERRO",
+        emoji: "🤖",
+        message:
+            "Meu sistema analisou a pergunta. Agora é com você!"
+    },
+
+
+    {
+        name: "HOMEM-ARANHA",
+        emoji: "🕷️",
+        message:
+            "Seja rápido! Escolha a alternativa correta!"
+    }
+
+];
+
+
+// =====================================================
+// VARIÁVEIS
+// =====================================================
+
+let gameQuestions = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let energy = 100;
+
+let answered = false;
+
+let roundNumber = 1;
+
+
+// =====================================================
+// EMBARALHAR
+// =====================================================
+
+function shuffle(array) {
+
+    const newArray = [...array];
+
+
+    for (
+        let i = newArray.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            newArray[i],
+            newArray[j]
+        ] =
+        [
+            newArray[j],
+            newArray[i]
+        ];
+
+    }
+
+
+    return newArray;
+
+}
+
+
+// =====================================================
+// CRIAR UMA NOVA RODADA
+//
+// IMPORTANTE:
+// SOMENTE 10 perguntas são colocadas
+// em gameQuestions.
+// As outras ficam escondidas.
+// =====================================================
+
+function createGameQuestions() {
+
+    const shuffledQuestions =
+        shuffle(questionBank);
+
+
+    const selectedQuestions =
+        shuffledQuestions.slice(0, 10);
+
+
+    gameQuestions =
+        selectedQuestions.map(
+            question => {
+
+                const correctText =
+                    question.answers[
+                        question.correct
+                    ];
+
+
+                const shuffledAnswers =
+                    shuffle(
+                        question.answers
+                    );
+
+
+                const newCorrect =
+                    shuffledAnswers.indexOf(
+                        correctText
+                    );
+
+
+                return {
+
+                    question:
+                        question.question,
+
+                    answers:
+                        shuffledAnswers,
+
+                    correct:
+                        newCorrect
+
+                };
+
+            }
+        );
+
+}
+
+
+// =====================================================
+// COMEÇAR JOGO
+// =====================================================
+
+function startGame() {
+
+    createGameQuestions();
+
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    energy = 100;
+
+
+    document
+        .getElementById("startScreen")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("resultScreen")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("quizScreen")
+        .classList
+        .remove("hidden");
+
+
+    showQuestion();
+
+}
+
+
+// =====================================================
+// MOSTRAR PERGUNTA
+// =====================================================
+
+function showQuestion() {
+
+    answered = false;
+
+
+    const data =
+        gameQuestions[
+            currentQuestion
+        ];
+
+
+    document
+        .getElementById("question")
+        .textContent =
+        data.question;
+
+
+    document
+        .getElementById("questionNumber")
+        .textContent =
+        "PERGUNTA "
+        + (currentQuestion + 1)
+        + " / 10";
+
+
+    document
+        .getElementById("topQuestion")
+        .textContent =
+        (currentQuestion + 1)
+        + " / 10";
+
+
+    document
+        .getElementById("level")
+        .textContent =
+        "RODADA "
+        + roundNumber;
+
+
+    document
+        .getElementById("phaseTitle")
+        .textContent =
+        "⚔️ DESAFIO DE POO";
+
+
+    const progress =
+        ((currentQuestion + 1) / 10)
+        * 100;
+
+
+    document
+        .getElementById("xpBar")
+        .style.width =
+        progress + "%";
+
+
+    const answers =
+        document.getElementById(
+            "answers"
+        );
+
+
+    answers.innerHTML = "";
+
+
+    data.answers.forEach(
+        (answer, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "answer";
+
+
+            button.textContent =
+                String.fromCharCode(
+                    65 + index
+                )
+                + ") "
+                + answer;
+
+
+            button.onclick =
+                function() {
+
+                    checkAnswer(
+                        index,
+                        button
+                    );
+
+                };
+
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    const nextButton =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    nextButton.disabled = true;
+
+
+    if (
+        currentQuestion === 9
+    ) {
+
+        nextButton.textContent =
+            "🏆 TERMINAR RODADA";
+
+    } else {
+
+        nextButton.textContent =
+            "PRÓXIMA PERGUNTA ➜";
+
+    }
+
+
+    updateScore();
+
+    updateHero();
+
+}
+
+
+// =====================================================
+// PERSONAGEM
+// =====================================================
+
+function updateHero() {
+
+    const hero =
+        heroes[
+            currentQuestion %
+            heroes.length
+        ];
+
+
+    document
+        .getElementById("fighter")
+        .textContent =
+        hero.emoji;
+
+
+    document
+        .getElementById("fighterName")
+        .textContent =
+        hero.name;
+
+
+    document
+        .getElementById("fighterMessage")
+        .textContent =
+        hero.message;
+
+}
+
+
+// =====================================================
+// VERIFICAR RESPOSTA
+// =====================================================
+
+function checkAnswer(
+    selected,
+    clickedButton
+) {
+
+    if (answered) {
+
+        return;
+
+    }
+
+
+    answered = true;
+
+
+    const data =
+        gameQuestions[
+            currentQuestion
+        ];
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".answer"
+        );
+
+
+    if (
+        selected === data.correct
+    ) {
+
+        score++;
+
+
+        clickedButton
+            .classList
+            .add("correct");
+
+
+        const fighter =
+            document.getElementById(
+                "fighter"
+            );
+
+
+        fighter.classList
+            .add("power");
+
+
+        document
+            .getElementById(
+                "fighterMessage"
+            )
+            .textContent =
+            "⚡ ACERTOU! Excelente!";
+
+
+        setTimeout(
+            function() {
+
+                fighter.classList
+                    .remove("power");
+
+            },
+            500
+        );
+
+
+    } else {
+
+        clickedButton
+            .classList
+            .add("wrong");
+
+
+        buttons[
+            data.correct
+        ]
+            .classList
+            .add("correct");
+
+
+        energy -= 10;
+
+
+        if (energy < 0) {
+
+            energy = 0;
+
+        }
+
+
+        const fighter =
+            document.getElementById(
+                "fighter"
+            );
+
+
+        fighter.classList
+            .add("hit");
+
+
+        document
+            .getElementById(
+                "fighterMessage"
+            )
+            .textContent =
+            "💥 Resposta incorreta!";
+
+
+        setTimeout(
+            function() {
+
+                fighter.classList
+                    .remove("hit");
+
+            },
+            500
+        );
+
+    }
+
+
+    updateLife();
+
+    updateScore();
+
+
+    document
+        .getElementById(
+            "nextButton"
+        )
+        .disabled = false;
+
+}
+
+
+// =====================================================
+// ENERGIA
+// =====================================================
+
+function updateLife() {
+
+    document
+        .getElementById("lifeBar")
+        .style.width =
+        energy + "%";
+
+}
+
+
+// =====================================================
+// PRÓXIMA
+// =====================================================
+
+function nextQuestion() {
+
+    if (!answered) {
+
+        return;
+
+    }
+
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion < 10
+    ) {
+
+        showQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+
+}
+
+
+// =====================================================
+// PONTUAÇÃO
+// =====================================================
+
+function updateScore() {
+
+    document
+        .getElementById("topScore")
+        .textContent =
+        "⭐ "
+        + score
+        + " XP";
+
+}
+
+
+// =====================================================
+// RESULTADO
+// =====================================================
+
+function showResult() {
+
+    document
+        .getElementById("quizScreen")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("resultScreen")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("finalScore")
+        .textContent =
+        score
+        + " / 10";
+
+
+    let character;
+
+    let message;
+
+    let rank;
+
+
+    if (score === 10) {
+
+        character = "👑";
+
+        message =
+            "PERFEITO! Você acertou todas as perguntas!";
+
+        rank =
+            "🏆 MESTRE DO JAVA";
+
+
+    } else if (score >= 8) {
+
+        character = "🤖";
+
+        message =
+            "Excelente! Você está dominando POO!";
+
+        rank =
+            "⚡ HERÓI DO JAVA";
+
+
+    } else if (score >= 6) {
+
+        character = "🕷️";
+
+        message =
+            "Muito bom! Continue praticando.";
+
+        rank =
+            "🔥 PROGRAMADOR";
+
+
+    } else if (score >= 4) {
+
+        character = "🦇";
+
+        message =
+            "Você está no caminho certo. Estude mais um pouco!";
+
+        rank =
+            "💻 APRENDIZ";
+
+
+    } else {
+
+        character = "🤖";
+
+        message =
+            "Não desista! Faça outra rodada e tente melhorar.";
+
+        rank =
+            "🔧 INICIANTE";
+
+    }
+
+
+    document
+        .getElementById(
+            "resultCharacter"
+        )
+        .textContent =
+        character;
+
+
+    document
+        .getElementById(
+            "resultMessage"
+        )
+        .textContent =
+        message;
+
+
+    document
+        .getElementById(
+            "rank"
+        )
+        .textContent =
+        rank;
+
+}
+
+
+// =====================================================
+// NOVA RODADA
+//
+// Aqui acontece o segredo:
+// createGameQuestions() sorteia novamente
+// somente 10 das perguntas escondidas.
+// =====================================================
+
+function newRound() {
+
+    roundNumber++;
+
+
+    startGame();
+
+}
+
+
+// =====================================================
+// VOLTAR AO MENU
+// =====================================================
+
+function goHome() {
+
+    document
+        .getElementById("quizScreen")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("resultScreen")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("startScreen")
+        .classList
+        .remove("hidden");
+
+
+    roundNumber = 1;
+
+    score = 0;
+
+    energy = 100;
+
+
+    document
+        .getElementById("topScore")
+        .textContent =
+        "⭐ 0 XP";
+
+
+    document
+        .getElementById("topQuestion")
+        .textContent =
+        "0 / 10";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
